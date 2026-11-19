@@ -1,0 +1,10 @@
+/* Cinema finishing motion (loaded after themes/cinema.css by theme.js).
+   Only photographs move: the hero photo settles in once on load. No text is ever faded or hidden.
+   The count-up on headline numbers lives in assets/js/motion.js. Everything here is off under reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes cx-settle { from { transform: scale(1.05); } to { transform: scale(1); } }
+  /* Home hero, a disaster's header photo and the Rebuild header photo: a slow 2.4s push back into place. */
+  .hero > .hero-bg,
+  .dz-hero > .dz-hero-bg,
+  .band:has(> .band-inner > h1) > .band-bg { animation: cx-settle 2.4s cubic-bezier(.2, 0, 0, 1) both; transform-origin: 60% 45%; }
+}

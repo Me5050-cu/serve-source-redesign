@@ -53,7 +53,8 @@
   document.write((ty === 'barlow' ? font : '') +
     '<link rel="stylesheet" href="assets/css/lettering.css"><link rel="stylesheet" href="assets/css/colorways.css">' +
     '<link rel="stylesheet" href="assets/css/themes/' + t + '.css"><script src="assets/js/themes/' + t + '.js"><\/script>' +
-    '<script src="assets/js/media.js"><\/script>');
+    '<script src="assets/js/media.js"><\/script>' +
+    '<link rel="stylesheet" href="assets/css/motion.css"><script src="assets/js/motion.js"><\/script>');
 
   // Colorways are pure CSS, so the ribbon switches them in place; the URL and the remembered choice follow.
   REG.setColorway = function (id) {

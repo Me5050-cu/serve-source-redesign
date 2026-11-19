@@ -43,7 +43,7 @@
   var SLOTS = [
     { slot: 'S1', sel: '.hero > img.hero-bg', was: 'f83a26_309b51cb', host: '.hero',
       media: img('1d1de7_ca5026b0401b44548c1ba13e30469bb6~mv2.jpg', [1280, 1920, 2560], SIZES.full), focus: '46% 55%',
-      credit: 'Serve Source (photographer TBC)' },
+      credit: 'Serve Source' },
     { slot: 'S2', sel: '.feature-grid > .feature:nth-child(1) .feature-media img', was: 'f83a26_309b51cb', host: '.feature-media',
       media: img('f83a26_87f510aee7b144fb8b1f0648312ad5a3~mv2.jpeg', [640, 960, 1440], SIZES.third), focus: '50% 45%',
       alt: 'Church and nonprofit leaders at round tables during an ATX Outreach Connection roundtable', credit: 'Serve Source' },
@@ -55,13 +55,13 @@
       alt: 'A forklift loads pallets of bottled water into a semi trailer while a volunteer holds the door', credit: 'Serve Source' },
     { slot: 'S5', sel: '.impact-grid > .impact:nth-child(1) .impact-media img', was: 'd9baa3d76_library-of-congress', host: '.impact-media',
       media: img('f83a26_8f6d0540d18a411d9c28c9a188749bf5~mv2.jpg', [800, 1200, 1600, 2048], SIZES.half), focus: '50% 50%',
-      alt: 'Volunteers in church shirts haul a tarp heaped with storm debris across a lawn', credit: 'Serve Source (confirm photographer)' },
+      alt: 'Volunteers in church shirts haul a tarp heaped with storm debris across a lawn', credit: 'Serve Source' },
     { slot: 'S6', sel: '.impact-grid > .impact:nth-child(2) .impact-media img', was: 'd615a2eda', host: '.impact-media',
       media: img('f83a26_4427b63b6ba446b4ae768479ae864289~mv2.jpg', [800, 1200, 1600, 2048], SIZES.half), focus: '50% 40%',
-      alt: 'Dozens of volunteers fill and stack sandbags from pallets in a parking lot', credit: 'Courtesy Serve 6.8 (confirm)' },
+      alt: 'Dozens of volunteers fill and stack sandbags from pallets in a parking lot', credit: 'Courtesy Serve 6.8' },
     { slot: 'S7', sel: '.layer .layer-media img', was: 'ad55d62bd_connective-layer', host: '.layer-media',
       media: img('1d1de7_359b821f4e8d48bca1f88f69704c8ec6~mv2.jpg', [800, 1200, 1600, 2400], SIZES.half), focus: '42% 50%',
-      alt: 'Two relief volunteers embrace in a storm-stripped yard while others work among broken trees', credit: 'Serve Source (photographer TBC)' },
+      alt: 'Two relief volunteers embrace in a storm-stripped yard while others work among broken trees', credit: 'Serve Source' },
     { slot: 'S9', sel: 'section.band > img.band-bg', was: 'd615a2eda', host: 'section.band',
       media: { src: DVIDS + '1212/796599/2000w_q95.jpg', srcset: DVIDS + '1212/796599/1000w_q95.jpg 1000w, ' + DVIDS + '1212/796599/2000w_q95.jpg 1999w', sizes: SIZES.full },
       focus: '50% 50%', credit: 'Photo by Ed Edahl / FEMA' },
@@ -71,14 +71,14 @@
     { slot: 'S10-1', sel: '.storm .mosaic > img:nth-child(1)', was: 'f83a26_0f45a7fb', keep: true, credit: 'Serve Source' },
     { slot: 'S10-2', sel: '.storm .mosaic > img:nth-child(2)', was: 'd615a2eda',
       media: img('f83a26_37a5e1b942124397ae0db7ffa74f6f02~mv2.png', [400, 600, 800], SIZES.tile), focus: '50% 42%',
-      alt: 'A volunteer shakes hands with an older homeowner on the porch as an Eight Days of Hope crew looks on', credit: 'TBC (Eight Days of Hope?)' },
+      alt: 'A volunteer shakes hands with an older homeowner on the porch as an Eight Days of Hope crew looks on', credit: 'Serve Source' },
     { slot: 'S10-3', sel: '.storm .mosaic > img:nth-child(3)', was: 'f83a26_f02783dc',
       media: img('1d1de7_6c8202a40e8a4922af5c7c890244495f~mv2.jpg', [400, 700, 1000], SIZES.tile), focus: '45% 40%',
-      alt: 'A Mercy Chefs volunteer at work in a field kitchen', credit: 'TBC (Serve Source / Mercy Chefs)' },
+      alt: 'A Mercy Chefs volunteer at work in a field kitchen', credit: 'Serve Source' },
     { slot: 'S10-4', sel: '.storm .mosaic > img:nth-child(4)', was: 'f83a26_8f6d0540', home: true,
       media: img('f83a26_f02783dcb08644a5a4b6ee94fbe99b8b~mv2.jpeg', [400, 700, 1000], SIZES.tile), focus: '50% 50%',
       alt: 'A volunteer cuts lumber on a rebuild project', credit: 'Serve Source' },
-    { slot: 'S10-4', sel: '.storm .mosaic > img:nth-child(4)', was: 'f83a26_8f6d0540', home: false, keep: true, credit: 'Serve Source (confirm photographer)' },
+    { slot: 'S10-4', sel: '.storm .mosaic > img:nth-child(4)', was: 'f83a26_8f6d0540', home: false, keep: true, credit: 'Serve Source' },
     // Closing CTA band: the poster is a frame of the loop; the loop itself is added in setupLoop().
     { slot: 'S11', sel: 'section.cta > img.band-bg', was: 'f83a26_309b51cb', host: 'section.cta', video: true,
       media: { src: WIX + REEL_POSTER + '/v1/fill/w_1920,h_1080,al_c,q_80,enc_auto/' + REEL_POSTER,
@@ -106,7 +106,9 @@
       // Place-accurate picks stay; the Colombia earthquake keeps its photo because no candidate fits an earthquake.
       'tropical-storm-rachel-eastern-pacific': rep(DVIDS_SAWYERS, 'U.S. Army photo by 2nd Lt. Jacob Moir'),
       'nepal–tibet-flash-flood-august-2026': rep(DVIDS + '2410/8717195/1000w_q95.jpg', 'Photo by Jocelyn Augustino / FEMA'),
-      'southeast-ohio-flooding-august-2026': rep(DVIDS + '2211/7522368/1000w_q95.jpg', 'Jocelyn Augustino / FEMA')
+      'southeast-ohio-flooding-august-2026': rep(DVIDS + '2211/7522368/1000w_q95.jpg', 'Jocelyn Augustino / FEMA'),
+      // Two flooding events side by side both fell back to the one Flooding stand-in; the second takes the other flood photo.
+      'four-corners-flooding-october-2026': rep(DVIDS + '2211/7522368/1000w_q95.jpg', 'Jocelyn Augustino / FEMA')
     });
   } catch (e) {}
 

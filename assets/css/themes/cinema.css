@@ -1337,3 +1337,69 @@ html body :is(.hero-stats dd, .counts b, .count-chip, .stat-row dd, .mini-stats 
 
 /* Demo build: hide the preview controls. */
 .mock-ribbon{display:none!important}
+
+/* =====================================================================
+   Finishing pass (demo polish, 2026-11-19)
+   ===================================================================== */
+/* Filter checkboxes: directory.css boxed every row and outlined checked rows in pale blue; Cinema lists them bare. */
+.check, .check:has(input:checked) { border-color: transparent; }
+/* Verified Faith-Based Partner: directory.css paints this pill navy, which vanished on the black organization cards. */
+.org-card > .pill.recovery, .org-card > .pill.recovery .icon { color: var(--cx-violet); }
+/* Photo credits that sit straight on bright sky (no scrim under them) keep a soft shadow so they stay legible. */
+.hero > .media-credit, section.band > .media-credit, .layer-media.media-credit-host > .media-credit { text-shadow: 0 1px 3px rgba(0, 0, 0, .75), 0 0 14px rgba(0, 0, 0, .4); }
+/* Disaster card credits wrap to a second line instead of stopping mid-name. */
+.d-media .credit { max-width: calc(100% - 24px); white-space: normal; overflow: hidden; text-overflow: clip; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; text-align: right; text-shadow: 0 1px 2px rgba(0, 0, 0, .6); }
+.d-media::after { height: 64px; background: linear-gradient(0deg, rgba(0, 0, 0, .66), transparent); }
+@media (min-width: 735px) and (max-width: 1068px) {
+  /* Home Long-Term Recovery band on tablet: the copy runs wider than the desktop scrim, over the saw and lumber. */
+  section.band::before { background: linear-gradient(90deg, rgba(0, 0, 0, .86) 0, rgba(0, 0, 0, .74) 52%, rgba(0, 0, 0, .3) 84%, rgba(0, 0, 0, .1) 100%), linear-gradient(0deg, rgba(0, 0, 0, .7) 0, transparent 50%); }
+}
+
+/* =====================================================================
+   Review fixes (demo polish 2, 2026-11-19)
+   ===================================================================== */
+/* Navy was left over from the old theme: placeholders, the side cards and the networks panel now use the neutral dark steps. */
+:root { --cx-navy: #1b1d23; --navy: #1b1d23; --navy-500: #262932; --navy-700: #121418; }
+:root .side-card.navy { background: var(--cx-panel) !important; border: 1px solid var(--cx-line); border-top: 3px solid var(--cx-orange-hi); }
+.net-more { background: var(--cx-surface); border: 1px solid var(--cx-line); border-top: 3px solid var(--cx-orange-hi); }
+/* Org logos: a larger tile, logo nearly edge to edge, a quiet off-white while it loads. */
+.resp-top { grid-template-columns: 64px minmax(0, 1fr); }
+.org-top { grid-template-columns: 64px minmax(0, 1fr); }
+main .resp-logo, main .org-logo { width: 64px; height: 64px; }
+img.resp-logo, img.org-logo { padding: 4px; object-fit: contain; background: #f4f4f2; }
+/* Overlay photo credits get a small dark backing so they read on bright sky or grass. */
+.media-credit-host > .media-credit, .hero > .media-credit, section.band > .media-credit { width: fit-content; margin-left: auto; padding: 3px 8px; background: rgba(0, 0, 0, .5); text-shadow: none; }
+/* Disaster card type icon keeps its edge on white overcast photos. */
+.d-media .type-icon { box-shadow: 0 0 0 1px rgba(0, 0, 0, .28), 0 2px 10px rgba(0, 0, 0, .35); }
+/* Closing reel: the compression reads as atmosphere, not as low resolution. */
+.cta video.band-bg { filter: saturate(.75) contrast(1.05) brightness(.6) blur(1.5px); transform: scale(1.03); }
+@media (min-width: 735px) and (max-width: 1068px) {
+  /* Disaster actions: a balanced 2 x 2 instead of 3 + 1. */
+  .dz-actions:not(:empty) { display: grid; grid-template-columns: 1fr 1fr; }
+  .dz-actions .btn { width: 100%; justify-content: center; }
+  .dz-actions > .btn:last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
+@media (max-width: 734px) {
+  main .resp-logo, main .org-logo { width: 56px; height: 56px; }
+  .resp-top, .org-top { grid-template-columns: 56px minmax(0, 1fr); }
+  /* Sticky sub-nav: a longer fade so the next tab reads as "scroll for more", not as a clipped word. */
+  .subnav-links { -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 64px), transparent calc(100% - 4px)); mask-image: linear-gradient(90deg, #000 calc(100% - 64px), transparent calc(100% - 4px)); }
+  .subnav-links.cx-moved { -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 20px, #000 calc(100% - 64px), transparent calc(100% - 4px)); mask-image: linear-gradient(90deg, transparent 0, #000 20px, #000 calc(100% - 64px), transparent calc(100% - 4px)); }
+  .subnav-links.cx-end { -webkit-mask-image: none; mask-image: none; }
+  .subnav-links.cx-moved.cx-end { -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 20px); mask-image: linear-gradient(90deg, transparent 0, #000 20px); }
+  /* Monitoring filter: wraps onto two full rows instead of running off the edge. */
+  :root[data-theme="cinema"] #mon-filter { flex-wrap: wrap; overflow: visible; }
+  :root[data-theme="cinema"] #mon-filter button { flex: 1 1 auto; }
+  /* the usual five types: a balanced 3 + 2 (falls back to plain wrapping for any other count) */
+  :root[data-theme="cinema"] #mon-filter:has(> button:nth-child(5):last-child) { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); }
+  :root[data-theme="cinema"] #mon-filter:has(> button:nth-child(5):last-child) > button { min-width: 0; padding: 0 8px; }
+  :root[data-theme="cinema"] #mon-filter:has(> button:nth-child(5):last-child) > button:nth-child(1) { grid-column: span 3; }
+  :root[data-theme="cinema"] #mon-filter:has(> button:nth-child(5):last-child) > button:nth-child(2) { grid-column: span 4; }
+  :root[data-theme="cinema"] #mon-filter:has(> button:nth-child(5):last-child) > button:nth-child(3) { grid-column: span 5; }
+  :root[data-theme="cinema"] #mon-filter:has(> button:nth-child(5):last-child) > button:nth-child(n+4) { grid-column: span 6; border-top: 1px solid var(--cx-line-3); }
+  :root[data-theme="cinema"] #mon-filter:has(> button:nth-child(5):last-child) > button:nth-child(4) { border-left: 0; }
+}
+@media (max-width: 599px) {
+  /* Phone sub-nav: the page name is already the hero headline, so the tabs get the room and never stop at a stub. */
+  .subnav .subnav-title { display: none; }
+}

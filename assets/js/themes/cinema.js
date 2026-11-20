@@ -45,11 +45,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   } catch (e) {}
 
-  // 3. Scroll reveals: a 24px rise and fade for blocks that start below the fold.
+  // 3. Scroll reveals (White build: motion.js owns reveals when it runs; this stays as the fallback path).
+  //    Scroll reveals: a 24px rise and fade for blocks that start below the fold.
   //    Never armed under reduced motion, webdriver (screenshot and bones tools), a hidden tab or a deep link,
   //    and never for anything already on screen, so no content can be left invisible.
   try {
-    if (!('IntersectionObserver' in window) || reduce.matches || navigator.webdriver || document.visibilityState !== 'visible' || location.hash) return;
+    if (root.classList.contains('mo-js') || !('IntersectionObserver' in window) || reduce.matches || navigator.webdriver || document.visibilityState !== 'visible' || location.hash) return;
     const SEL = '.section-head, .row-head, .block-head, .feature, .impact, .intent, .d-card:not(.skeleton), .org-card, .net-card, .why-grid > div, .pillars > div';
     const DELAYS = ['', 'cx-d1', 'cx-d2', 'cx-d3', 'cx-d4'];
     const seen = new WeakSet();

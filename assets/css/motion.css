@@ -1,10 +1,74 @@
-/* Cinema finishing motion (loaded after themes/cinema.css by theme.js).
-   Only photographs move: the hero photo settles in once on load. No text is ever faded or hidden.
-   The count-up on headline numbers lives in assets/js/motion.js. Everything here is off under reduced motion. */
+/* Motion layer, shared byte-for-byte by the dark and the light build (loaded by theme.js after the theme stylesheets;
+   driven by assets/js/motion.js).
+   Progressive enhancement: nothing is hidden unless motion.js has put .mo-js on <html>, and motion.js never adds it
+   when the reader prefers reduced motion. Hero and page-hero copy is never hidden: only content below the fold reveals.
+   Only opacity, transform and clip-path animate, so nothing reflows. */
+:root {
+  --mo-ease: cubic-bezier(.16, 1, .3, 1);
+  --mo-dur: 520ms;
+  --mo-rise: 16px;
+}
+
+/* ---------- Scroll reveals ---------- */
+/* Pending: faded and lowered. motion.js sets data-mo="r", then "in" when the element enters the viewport (staggered
+   70ms in reading order), then "done" once the transition has finished so the element's own hover transitions return. */
+html.mo-js [data-mo="r"] { opacity: 0; transform: translate3d(0, var(--mo-rise), 0); }
+html.mo-js [data-mo="in"] { opacity: 1; transform: none; transition: opacity var(--mo-dur) var(--mo-ease) var(--mo-delay, 0ms), transform var(--mo-dur) var(--mo-ease) var(--mo-delay, 0ms); }
+html.mo-js [data-mo-k="head"][data-mo="r"] { transform: translate3d(0, 12px, 0); }
+
+/* Photos: a soft zoom-out inside a clip that opens up. */
+html.mo-js [data-mo-k="img"][data-mo="r"] { opacity: 0; transform: scale(1.1); clip-path: inset(6% 6% 6% 6% round 18px); }
+html.mo-js [data-mo-k="img"][data-mo="in"] { opacity: 1; transform: none; clip-path: inset(0 0 0 0 round 0); transition: opacity 900ms var(--mo-ease) var(--mo-delay, 0ms), transform 1300ms var(--mo-ease) var(--mo-delay, 0ms), clip-path 1300ms var(--mo-ease) var(--mo-delay, 0ms); }
+/* The Connective Layer plate is a whole screen wide: it only settles (no clip), so its white fade is never cut. */
+html.mo-js .layer-media > img[data-mo="r"] { clip-path: none; transform: scale(1.08); opacity: 0; }
+
+/* ---------- Count-up figures ---------- */
+.mo-num { display: inline-block; text-align: right; font-variant-numeric: tabular-nums lining-nums; }
+.mo-sr { position: absolute !important; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+/* ---------- Scroll progress: a thin orange line across the very top ---------- */
+.mo-progress { position: fixed; top: 0; left: 0; right: 0; z-index: 1200; height: 3px; background: linear-gradient(90deg, var(--cx-orange-ui), var(--cx-orange-hi)); transform-origin: 0 50%; transform: scaleX(0); pointer-events: none; }
+
+/* ---------- Header: tightens once the page moves (64 -> 56px desktop, 56 -> 48px phone; the glass is in cinema-ui.css) ---------- */
+.site-header .brand img { transition: width .35s var(--mo-ease), height .35s var(--mo-ease); }
+html.cx-scrolled .site-header, html.cx-scrolled .site-header.on-dark { height: calc(var(--nav-h) - 8px); }
+html.cx-scrolled .site-header .brand img { width: 30px; height: 30px; }
+@media (max-width: 1068px) {
+  html.cx-scrolled .site-header .brand img { width: 28px; height: 28px; }
+}
+/* Pages with a sticky sub-nav keep the header's full height so the sub-nav never jumps. */
+html.cx-scrolled body.has-subnav .site-header { height: var(--nav-h); }
+html.cx-scrolled body.has-subnav .site-header .brand img { width: 36px; height: 36px; }
+
+/* ---------- Hero photos: settle once on load (scale 1.05 -> 1), then stay still under the copy ---------- */
 @media (prefers-reduced-motion: no-preference) {
   @keyframes cx-settle { from { transform: scale(1.05); } to { transform: scale(1); } }
-  /* Home hero, a disaster's header photo and the Rebuild header photo: a slow 2.4s push back into place. */
+  .hero { overflow: hidden; }
   .hero > .hero-bg,
   .dz-hero > .dz-hero-bg,
   .band:has(> .band-inner > h1) > .band-bg { animation: cx-settle 2.4s cubic-bezier(.2, 0, 0, 1) both; transform-origin: 60% 45%; }
+}
+/* The Long-Term Recovery band drifts with the scroll on desktop (motion.js writes --mo-par). */
+@media (min-width: 1069px) and (prefers-reduced-motion: no-preference) {
+  section.band:not(:has(h1)) { overflow: hidden; }
+  section.band:not(:has(h1)) > img.band-bg { transform-origin: 50% 0; transform: translate3d(0, var(--mo-par, 0px), 0) scale(1.08); will-change: transform; }
+}
+
+/* ---------- Hover: arrows nudge ---------- */
+@media (hover: hover) {
+  .link-more:hover .icon, .intent:hover .go .icon, .d-card:hover .d-foot .go .icon, .org-card:hover .org-go .icon, .net-card:hover .net-go .icon, .btn:hover .icon { transform: translate3d(4px, 0, 0); }
+  .btn .icon { transition: transform .45s var(--mo-ease); }
+}
+
+/* ---------- In-page anchors land below the sticky bars ---------- */
+:target, main [id] { scroll-margin-top: 80px; }
+body.has-subnav main [id] { scroll-margin-top: 72px; }
+
+/* ---------- Reduced motion: everything shown, nothing moves ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html.mo-js [data-mo] { opacity: 1 !important; transform: none !important; clip-path: none !important; transition: none !important; }
+  .hero > .hero-bg, .dz-hero > .dz-hero-bg, .band > .band-bg { animation: none !important; transform: none !important; }
+  .btn:hover, .intent:hover, .d-card:hover, .org-card:hover, .net-card:hover, .socials a:hover { transform: none !important; }
+  .btn:hover .icon, .link-more:hover .icon { transform: none !important; }
+  .site-header, .subnav, .site-header .brand img { transition: none !important; }
 }
